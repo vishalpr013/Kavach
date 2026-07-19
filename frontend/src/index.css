@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-surface-800 text-text-primary font-sans antialiased;
+  min-height: 100vh;
+}
+
+/* Scrollbar styling for the command center feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-amber-500;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-amber-500/30 text-text-primary;
+}
+
+/* Bracket label convention from reference site: [CORRIDOR] [RISK] [STATUS] */
+@layer components {
+  .bracket-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.15em] text-text-muted;
+  }
+
+  .bracket-label::before {
+    content: '[';
+    @apply text-surface-400;
+  }
+
+  .bracket-label::after {
+    content: ']';
+    @apply text-surface-400;
+  }
+
+  /* Pill-tag chips — reused from reference site's skill tags */
+  .pill-tag {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono
+           border border-surface-400 text-text-secondary
+           transition-colors duration-200;
+  }
+
+  .pill-tag:hover {
+    @apply border-amber-500/50 text-amber-400;
+  }
+
+  /* Risk-colored pill variants */
+  .pill-tag-critical {
+    @apply border-risk-critical/40 text-risk-critical bg-risk-critical/5;
+  }
+
+  .pill-tag-high {
+    @apply border-risk-high/40 text-risk-high bg-risk-high/5;
+  }
+
+  .pill-tag-elevated {
+    @apply border-risk-elevated/40 text-risk-elevated bg-risk-elevated/5;
+  }
+
+  .pill-tag-moderate {
+    @apply border-risk-moderate/40 text-risk-moderate bg-risk-moderate/5;
+  }
+
+  .pill-tag-low {
+    @apply border-risk-low/40 text-risk-low bg-risk-low/5;
+  }
+
+  /* Card component — minimal chrome, borders over shadows */
+  .card {
+    @apply bg-surface-700 border border-surface-500 rounded-lg p-4
+           transition-all duration-200;
+  }
+
+  .card:hover {
+    @apply border-surface-400;
+  }
+
+  .card-interactive {
+    @apply card cursor-pointer;
+  }
+
+  .card-interactive:hover {
+    @apply border-amber-500/30 bg-surface-600;
+  }
+
+  /* Thin horizontal rule dividers — from reference site */
+  .divider {
+    @apply border-t border-surface-500 my-4;
+  }
+
+  /* Score display — monospace, prominent */
+  .score-display {
+    @apply font-mono text-2xl font-semibold tabular-nums;
+  }
+
+  /* Skeleton loader for LLM-backed calls */
+  .skeleton {
+    @apply bg-gradient-to-r from-surface-600 via-surface-500 to-surface-600
+           bg-[length:200%_100%] animate-shimmer rounded;
+  }
+
+  /* Section heading — serif italic for emphasis */
+  .section-heading {
+    @apply font-display text-xl font-semibold text-text-primary;
+  }
+
+  .section-heading em {
+    @apply italic text-amber-400;
+  }
+}
