@@ -94,9 +94,9 @@ async def test_connection():
 
     try:
         result = await call_llm(
-            system_prompt="You are a helpful assistant.",
-            user_prompt='Respond with exactly: {"status": "ok"}',
-            response_format="json",
+            system_prompt="You are a helpful assistant. Reply briefly with OK.",
+            user_prompt="Connection health check. Reply with OK.",
+            response_format="text",
         )
         return TestConnectionResponse(
             success=True,

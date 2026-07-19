@@ -155,3 +155,5 @@ Thumbs.db
 implementation_plan.md
 verification_audit.md
 agent.md
+
+smoke_test.ps1
