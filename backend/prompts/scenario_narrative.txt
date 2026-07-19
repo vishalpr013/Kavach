@@ -1,0 +1,15 @@
+You are an energy supply chain analyst. Given the computed impact numbers from a disruption scenario simulation, write a clear, concise 3-4 sentence explanation of what this scenario means operationally for India's energy supply chain. Use plain English. Do not repeat the raw numbers — explain what they mean in practical terms for refineries, fuel prices, and the broader economy.
+
+Scenario parameters:
+- Scenario type: {scenario_type}
+- Affected corridor: {corridor}
+- Capacity loss: {capacity_loss_pct}%
+- Duration: {duration_days} days
+
+Computed impacts:
+- Refinery run-rate drop: {refinery_runrate_drop}%
+- Fuel price impact: {fuel_price_impact_pct}%
+- Power sector stress index: {power_sector_stress}
+- GDP stress estimate: {gdp_stress_pct}%
+
+Respond with ONLY the narrative paragraph, no JSON, no bullet points.

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "saudi-spot",
+    "name": "Saudi Arabia (Spot Market)",
+    "route": "Persian Gulf → Jamnagar",
+    "crude_grade": "Arab Light",
+    "spot_price_usd_bbl": 82.50,
+    "tanker_availability_score": 0.85,
+    "port_congestion_score": 0.30,
+    "refinery_grade_compatibility_score": 0.95,
+    "transit_days": 7,
+    "notes": "Illustrative — primary supplier, high compatibility with Indian refineries"
+  },
+  {
+    "id": "uae-spot",
+    "name": "UAE (Abu Dhabi, Murban)",
+    "route": "Persian Gulf → Mumbai High",
+    "crude_grade": "Murban",
+    "spot_price_usd_bbl": 83.20,
+    "tanker_availability_score": 0.80,
+    "port_congestion_score": 0.25,
+    "refinery_grade_compatibility_score": 0.90,
+    "transit_days": 6,
+    "notes": "Illustrative — strong bilateral trade relationship"
+  },
+  {
+    "id": "iraq-basra",
+    "name": "Iraq (Basra)",
+    "route": "Persian Gulf → Paradip",
+    "crude_grade": "Basra Heavy",
+    "spot_price_usd_bbl": 76.80,
+    "tanker_availability_score": 0.70,
+    "port_congestion_score": 0.45,
+    "refinery_grade_compatibility_score": 0.80,
+    "transit_days": 8,
+    "notes": "Illustrative — cost-competitive but heavier grade requires specific refinery config"
+  },
+  {
+    "id": "russia-urals",
+    "name": "Russia (Urals via ESPO)",
+    "route": "Kozmino → Jamnagar (Pacific route)",
+    "crude_grade": "ESPO Blend",
+    "spot_price_usd_bbl": 68.50,
+    "tanker_availability_score": 0.60,
+    "port_congestion_score": 0.55,
+    "refinery_grade_compatibility_score": 0.75,
+    "transit_days": 22,
+    "notes": "Illustrative — steep discount but longer transit, sanctions-adjacent risk"
+  },
+  {
+    "id": "us-wti",
+    "name": "United States (WTI, Gulf Coast)",
+    "route": "Houston → Jamnagar (Cape route)",
+    "crude_grade": "WTI Midland",
+    "spot_price_usd_bbl": 79.00,
+    "tanker_availability_score": 0.75,
+    "port_congestion_score": 0.20,
+    "refinery_grade_compatibility_score": 0.85,
+    "transit_days": 35,
+    "notes": "Illustrative — light sweet crude, excellent compatibility but long haul"
+  },
+  {
+    "id": "nigeria-bonny",
+    "name": "Nigeria (Bonny Light)",
+    "route": "Lagos → Mangalore (Cape route)",
+    "crude_grade": "Bonny Light",
+    "spot_price_usd_bbl": 84.00,
+    "tanker_availability_score": 0.55,
+    "port_congestion_score": 0.50,
+    "refinery_grade_compatibility_score": 0.88,
+    "transit_days": 25,
+    "notes": "Illustrative — premium light crude, moderate availability"
+  },
+  {
+    "id": "angola-girassol",
+    "name": "Angola (Girassol)",
+    "route": "Luanda → Kochi (Cape route)",
+    "crude_grade": "Girassol",
+    "spot_price_usd_bbl": 81.00,
+    "tanker_availability_score": 0.50,
+    "port_congestion_score": 0.35,
+    "refinery_grade_compatibility_score": 0.82,
+    "transit_days": 28,
+    "notes": "Illustrative — diversification option from West Africa"
+  },
+  {
+    "id": "guyana-liza",
+    "name": "Guyana (Liza Crude)",
+    "route": "Georgetown → Paradip (Atlantic route)",
+    "crude_grade": "Liza Light",
+    "spot_price_usd_bbl": 77.50,
+    "tanker_availability_score": 0.45,
+    "port_congestion_score": 0.15,
+    "refinery_grade_compatibility_score": 0.78,
+    "transit_days": 40,
+    "notes": "Illustrative — emerging supplier, competitive pricing, longest transit"
+  }
+]

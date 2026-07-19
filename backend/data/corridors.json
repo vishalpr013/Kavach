@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Strait of Hormuz",
+    "baseline_risk_score": 45,
+    "import_share_pct": 0.40,
+    "description": "Critical chokepoint handling ~20% of global oil transit. ~40-45% of India's crude imports transit here.",
+    "lat": 26.56,
+    "lng": 56.25,
+    "region": "Persian Gulf"
+  },
+  {
+    "name": "Red Sea",
+    "baseline_risk_score": 55,
+    "import_share_pct": 0.12,
+    "description": "Red Sea / Bab-el-Mandeb strait. Key transit route affected by Houthi disruptions since 2023.",
+    "lat": 12.58,
+    "lng": 43.33,
+    "region": "Red Sea"
+  },
+  {
+    "name": "Iran Exports",
+    "baseline_risk_score": 40,
+    "import_share_pct": 0.10,
+    "description": "Direct crude imports from Iran, subject to periodic sanctions pressure.",
+    "lat": 27.15,
+    "lng": 56.17,
+    "region": "Persian Gulf"
+  },
+  {
+    "name": "Persian Gulf",
+    "baseline_risk_score": 35,
+    "import_share_pct": 0.65,
+    "description": "Broader Persian Gulf shipping lanes. Saudi Arabia, Iraq, Kuwait, and UAE exports to India.",
+    "lat": 26.00,
+    "lng": 52.00,
+    "region": "Persian Gulf"
+  },
+  {
+    "name": "Suez Canal",
+    "baseline_risk_score": 25,
+    "import_share_pct": 0.08,
+    "description": "Egypt's Suez Canal — key shortcut for Europe-Asia oil trade, alternative routing for Indian imports.",
+    "lat": 30.46,
+    "lng": 32.34,
+    "region": "Mediterranean"
+  },
+  {
+    "name": "Cape of Good Hope",
+    "baseline_risk_score": 15,
+    "import_share_pct": 0.05,
+    "description": "Alternative long-haul route around Africa when Red Sea/Suez routes are disrupted. Higher transit costs.",
+    "lat": -34.35,
+    "lng": 18.47,
+    "region": "Africa"
+  }
+]

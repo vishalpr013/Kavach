@@ -1,0 +1,122 @@
+[
+  {
+    "headline": "US Navy deploys additional carrier strike group to Strait of Hormuz amid rising tensions with Iran",
+    "ground_truth_corridor": "Strait of Hormuz",
+    "ground_truth_severity": 4,
+    "ground_truth_category": "military/maritime incident"
+  },
+  {
+    "headline": "Iran threatens to close Strait of Hormuz if new oil sanctions imposed by Western nations",
+    "ground_truth_corridor": "Strait of Hormuz",
+    "ground_truth_severity": 4,
+    "ground_truth_category": "sanctions"
+  },
+  {
+    "headline": "Houthi forces launch anti-ship missiles at commercial tanker in southern Red Sea",
+    "ground_truth_corridor": "Red Sea",
+    "ground_truth_severity": 5,
+    "ground_truth_category": "military/maritime incident"
+  },
+  {
+    "headline": "Major shipping lines suspend Red Sea transits following drone attack on container vessel",
+    "ground_truth_corridor": "Red Sea",
+    "ground_truth_severity": 5,
+    "ground_truth_category": "capacity disruption"
+  },
+  {
+    "headline": "EU tightens sanctions on Iranian crude exports, targeting banking and insurance channels",
+    "ground_truth_corridor": "Iran Exports",
+    "ground_truth_severity": 4,
+    "ground_truth_category": "sanctions"
+  },
+  {
+    "headline": "India negotiates rupee-denominated oil payment mechanism with Iran to bypass dollar sanctions",
+    "ground_truth_corridor": "Iran Exports",
+    "ground_truth_severity": 2,
+    "ground_truth_category": "diplomatic"
+  },
+  {
+    "headline": "OPEC+ announces surprise 1.5 million barrel per day production cut effective next month",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 4,
+    "ground_truth_category": "capacity disruption"
+  },
+  {
+    "headline": "Saudi Aramco reports temporary shutdown of Ras Tanura terminal due to security incident",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 5,
+    "ground_truth_category": "capacity disruption"
+  },
+  {
+    "headline": "Suez Canal Authority raises transit fees by 15% amid global shipping route realignment",
+    "ground_truth_corridor": "Suez Canal",
+    "ground_truth_severity": 2,
+    "ground_truth_category": "price shock"
+  },
+  {
+    "headline": "Container ship grounding partially blocks Suez Canal northbound lane for 48 hours",
+    "ground_truth_corridor": "Suez Canal",
+    "ground_truth_severity": 3,
+    "ground_truth_category": "capacity disruption"
+  },
+  {
+    "headline": "Brent crude surges past $95 per barrel on Middle East escalation fears",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 3,
+    "ground_truth_category": "price shock"
+  },
+  {
+    "headline": "Iran Revolutionary Guard seizes foreign-flagged tanker near Strait of Hormuz",
+    "ground_truth_corridor": "Strait of Hormuz",
+    "ground_truth_severity": 5,
+    "ground_truth_category": "military/maritime incident"
+  },
+  {
+    "headline": "UAE and India sign long-term strategic oil supply agreement bypassing traditional spot markets",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 1,
+    "ground_truth_category": "diplomatic"
+  },
+  {
+    "headline": "Insurance premiums for Red Sea shipping routes spike 300% following latest Houthi attack",
+    "ground_truth_corridor": "Red Sea",
+    "ground_truth_severity": 4,
+    "ground_truth_category": "price shock"
+  },
+  {
+    "headline": "US imposes secondary sanctions on refineries processing Iranian crude oil",
+    "ground_truth_corridor": "Iran Exports",
+    "ground_truth_severity": 5,
+    "ground_truth_category": "sanctions"
+  },
+  {
+    "headline": "Kuwait suspends crude oil loading at Al Ahmadi port due to severe weather conditions",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 2,
+    "ground_truth_category": "capacity disruption"
+  },
+  {
+    "headline": "Egypt deploys naval forces to protect Suez Canal commercial traffic from regional spillover",
+    "ground_truth_corridor": "Suez Canal",
+    "ground_truth_severity": 3,
+    "ground_truth_category": "military/maritime incident"
+  },
+  {
+    "headline": "Indian Oil Ministry activates emergency procurement protocol for strategic reserve top-up",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 3,
+    "ground_truth_category": "capacity disruption"
+  },
+  {
+    "headline": "Iraq-Turkey pipeline resumes operations after three-month maintenance shutdown",
+    "ground_truth_corridor": "Persian Gulf",
+    "ground_truth_severity": 1,
+    "ground_truth_category": "diplomatic"
+  },
+  {
+    "headline": "Houthi spokesperson warns all vessels bound for Israeli ports will be targeted in Red Sea",
+    "ground_truth_corridor": "Red Sea",
+    "ground_truth_severity": 4,
+    "ground_truth_category": "military/maritime incident"
+  }
+]
