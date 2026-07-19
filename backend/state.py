@@ -70,3 +70,9 @@ def update_corridor_score(corridor_name: str, score: float, signal: dict):
 def get_ingested_signals() -> list[dict]:
     """Return all ingested signals."""
     return _ingested_signals
+
+
+def reset_ingested_signals():
+    """Clear ingested signal history (used by demo state reset)."""
+    global _ingested_signals
+    _ingested_signals = []

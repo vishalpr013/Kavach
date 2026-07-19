@@ -10,7 +10,7 @@ import {
   Clock,
   Loader2,
 } from 'lucide-react';
-import { getCorridorScores, ingestSignal } from '../api';
+import { getCorridorScores, ingestSignal, resetDemoState } from '../api';
 
 // Risk level thresholds and colors
 function getRiskLevel(score) {
@@ -35,7 +35,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [headline, setHeadline] = useState('');
   const [ingesting, setIngesting] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [lastSignal, setLastSignal] = useState(null);
+  const [resetMessage, setResetMessage] = useState('');
   const [animatingCorridor, setAnimatingCorridor] = useState(null);
 
   const fetchScores = useCallback(async () => {
@@ -62,6 +64,7 @@ export default function Dashboard() {
 
     setIngesting(true);
     setLastSignal(null);
+    setResetMessage('');
 
     try {
       const res = await ingestSignal(headline.trim());
@@ -84,6 +87,26 @@ export default function Dashboard() {
 
   const handleCorridorClick = (corridorName) => {
     navigate(`/scenario?corridor=${encodeURIComponent(corridorName)}`);
+  };
+
+  const handleResetDemo = async () => {
+    if (resetting) return;
+
+    setResetting(true);
+    setLastSignal(null);
+    setResetMessage('');
+
+    try {
+      await resetDemoState(false);
+      await fetchScores();
+      setAnimatingCorridor(null);
+      setResetMessage('Demo state reset to baseline. Ingest a headline to show live score movement.');
+    } catch (err) {
+      console.error('Demo state reset failed:', err);
+      setLastSignal({ error: err.response?.data?.detail || 'Failed to reset demo state' });
+    } finally {
+      setResetting(false);
+    }
   };
 
   if (loading) {
@@ -212,6 +235,12 @@ export default function Dashboard() {
             <p className="text-xs text-risk-critical font-mono">{lastSignal.error}</p>
           </div>
         )}
+
+        {resetMessage && (
+          <div className="mt-3 p-3 bg-risk-low/5 border border-risk-low/20 rounded-md">
+            <p className="text-xs text-risk-low font-mono">{resetMessage}</p>
+          </div>
+        )}
       </div>
 
       {/* Corridor Risk Cards */}
@@ -223,13 +252,27 @@ export default function Dashboard() {
               Click to model scenarios
             </span>
           </div>
-          <button
-            onClick={fetchScores}
-            className="flex items-center gap-1.5 text-text-muted hover:text-amber-400 transition-colors"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span className="font-mono text-[10px] uppercase tracking-wider">Refresh</span>
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleResetDemo}
+              disabled={resetting}
+              className="flex items-center gap-1.5 text-text-muted hover:text-risk-low transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {resetting ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <RefreshCw className="w-3.5 h-3.5" />
+              )}
+              <span className="font-mono text-[10px] uppercase tracking-wider">Reset Demo</span>
+            </button>
+            <button
+              onClick={fetchScores}
+              className="flex items-center gap-1.5 text-text-muted hover:text-amber-400 transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span className="font-mono text-[10px] uppercase tracking-wider">Refresh</span>
+            </button>
+          </div>
         </div>
 
         <div className="space-y-2">
