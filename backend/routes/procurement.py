@@ -15,7 +15,10 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-from ..llm_client import call_llm
+try:
+    from ..llm_client import call_llm
+except ImportError:
+    from llm_client import call_llm
 
 router = APIRouter(prefix="/api", tags=["procurement"])
 

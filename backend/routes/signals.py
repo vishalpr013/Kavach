@@ -10,8 +10,12 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-from ..state import get_corridor_scores, get_ingested_signals
-from ..scoring import process_single_signal
+try:
+    from ..state import get_corridor_scores, get_ingested_signals
+    from ..scoring import process_single_signal
+except ImportError:
+    from state import get_corridor_scores, get_ingested_signals
+    from scoring import process_single_signal
 
 router = APIRouter(prefix="/api", tags=["signals"])
 

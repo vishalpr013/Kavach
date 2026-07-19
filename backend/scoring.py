@@ -16,8 +16,12 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from .state import get_corridor_scores, set_corridor_scores, update_corridor_score
-from .llm_client import call_llm
+try:
+    from .state import get_corridor_scores, set_corridor_scores, update_corridor_score
+    from .llm_client import call_llm
+except ImportError:
+    from state import get_corridor_scores, set_corridor_scores, update_corridor_score
+    from llm_client import call_llm
 
 logger = logging.getLogger(__name__)
 

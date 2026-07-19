@@ -10,8 +10,12 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-from ..state import get_active_llm_config, set_llm_config
-from ..llm_client import call_llm, _get_default_key
+try:
+    from ..state import get_active_llm_config, set_llm_config
+    from ..llm_client import call_llm, _get_default_key
+except ImportError:
+    from state import get_active_llm_config, set_llm_config
+    from llm_client import call_llm, _get_default_key
 
 router = APIRouter(prefix="/api/settings", tags=["settings"])
 

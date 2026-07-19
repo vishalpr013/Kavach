@@ -17,13 +17,22 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv(Path(__file__).parent / ".env")
 
-from .routes.settings import router as settings_router
-from .routes.signals import router as signals_router
-from .routes.scenarios import router as scenarios_router
-from .routes.procurement import router as procurement_router
-from .routes.reserves import router as reserves_router
-from .state import set_corridor_scores
-from .scoring import initialize_corridor_scores, batch_process_seed_headlines
+try:
+    from .routes.settings import router as settings_router
+    from .routes.signals import router as signals_router
+    from .routes.scenarios import router as scenarios_router
+    from .routes.procurement import router as procurement_router
+    from .routes.reserves import router as reserves_router
+    from .state import set_corridor_scores
+    from .scoring import initialize_corridor_scores, batch_process_seed_headlines
+except ImportError:
+    from routes.settings import router as settings_router
+    from routes.signals import router as signals_router
+    from routes.scenarios import router as scenarios_router
+    from routes.procurement import router as procurement_router
+    from routes.reserves import router as reserves_router
+    from state import set_corridor_scores
+    from scoring import initialize_corridor_scores, batch_process_seed_headlines
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

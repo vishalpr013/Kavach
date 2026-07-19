@@ -36,7 +36,10 @@ async def call_llm(
     Returns:
         {"content": str, "provider": str, "model": str}
     """
-    from .state import get_active_llm_config
+    try:
+        from .state import get_active_llm_config
+    except ImportError:
+        from state import get_active_llm_config
 
     active_config = get_active_llm_config()
     provider = provider or active_config["provider"]
