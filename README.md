@@ -106,6 +106,16 @@ graph TD
 
 ---
 
+## Prototype
+
+![Prototype sample 1](samples/1.png)
+
+![Prototype sample 2](samples/2.png)
+
+![Prototype sample 3](samples/3.png)
+
+---
+
 ## 🛠️ Setup & Installation
 
 Kavach runs locally using a Python FastAPI backend and a React (Vite) frontend.
