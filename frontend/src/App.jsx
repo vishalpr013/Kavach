@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import ScenarioModeller from './pages/ScenarioModeller';
 import Procurement from './pages/Procurement';
 import DigitalTwin from './pages/DigitalTwin';
+import About from './pages/About';
 import Settings from './pages/Settings';
 import './index.css';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/scenario" element={<ScenarioModeller />} />
           <Route path="/procurement" element={<Procurement />} />
           <Route path="/map" element={<DigitalTwin />} />
+          <Route path="/about" element={<About />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>

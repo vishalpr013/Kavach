@@ -1,5 +1,5 @@
 """
-ET-AI Backend — FastAPI Application Entry Point
+Kavach Backend - FastAPI Application Entry Point
 
 Serves the AI-Driven Energy Supply Chain Resilience Platform API.
 Batch-processes seed headlines at startup to pre-populate corridor risk scores.
@@ -43,7 +43,7 @@ DATA_DIR = Path(__file__).parent / "data"
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup: load seed data and batch-process headlines via LLM."""
-    logger.info("🚀 ET-AI Backend starting up...")
+    logger.info("🚀 Kavach Backend starting up...")
 
     # Load corridor data and initialize scores
     with open(DATA_DIR / "corridors.json", "r") as f:
@@ -62,11 +62,11 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    logger.info("👋 ET-AI Backend shutting down...")
+    logger.info("👋 Kavach Backend shutting down...")
 
 
 app = FastAPI(
-    title="ET-AI — Energy Supply Chain Resilience Platform",
+    title="Kavach - Energy Supply Chain Resilience Platform",
     description="AI-driven geopolitical risk monitoring and supply chain scenario modelling for India's energy imports.",
     version="0.1.0",
     lifespan=lifespan,
@@ -92,4 +92,4 @@ app.include_router(reserves_router)
 @app.get("/api/health")
 async def health_check():
     """Simple health check endpoint."""
-    return {"status": "ok", "service": "ET-AI Backend"}
+    return {"status": "ok", "service": "Kavach Backend"}

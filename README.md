@@ -1,6 +1,6 @@
-# ET·AI — AI-Driven Energy Supply Chain Resilience Platform
+# Kavach - AI-Driven Energy Supply Chain Resilience Platform
 
-ET·AI is an interactive decision-support system and simulation terminal built for **ET AI Hackathon 2026 — Round 2** (Problem Statement 2: *"AI-Driven Energy Supply Chain Resilience for Import-Dependent Economies"*).
+Kavach is an interactive decision-support system and simulation terminal built for **ET AI Hackathon 2026 — Round 2** (Problem Statement 2: *"AI-Driven Energy Supply Chain Resilience for Import-Dependent Economies"*).
 
 ---
 
@@ -12,7 +12,7 @@ Geopolitical disruptions (such as the 2025 US-Iran standoff, Red Sea/Houthi atta
 1. Model complex geopolitical scenario impacts in real-time.
 2. Produce fast, mathematically sound, and operationally executable rerouting recommendations.
 
-According to McKinsey, economies lacking integrated response intelligence take an average of **47 days longer** to stabilize oil supply after shocks. **ET·AI solves this by reducing response time from weeks to seconds.**
+According to McKinsey, economies lacking integrated response intelligence take an average of **47 days longer** to stabilize oil supply after shocks. **Kavach solves this by reducing response time from weeks to seconds.**
 
 ---
 
@@ -109,7 +109,7 @@ graph TD
 
 ## 🛠️ Setup & Installation
 
-ET·AI runs locally using a Python FastAPI backend and a React (Vite) frontend.
+Kavach runs locally using a Python FastAPI backend and a React (Vite) frontend.
 
 ### Prerequisites
 - Python 3.10+

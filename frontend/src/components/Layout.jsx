@@ -4,6 +4,7 @@ import {
   BarChart3,
   ShoppingCart,
   Globe2,
+  Info,
   Settings,
   Shield,
   Zap,
@@ -14,6 +15,7 @@ const navItems = [
   { path: '/scenario', label: 'SCENARIOS', icon: BarChart3, shortLabel: 'SIM' },
   { path: '/procurement', label: 'PROCUREMENT', icon: ShoppingCart, shortLabel: 'PROC' },
   { path: '/map', label: 'DIGITAL TWIN', icon: Globe2, shortLabel: 'MAP' },
+  { path: '/about', label: 'ABOUT', icon: Info, shortLabel: 'ABOUT' },
 ];
 
 export default function Layout() {
@@ -31,7 +33,7 @@ export default function Layout() {
             </div>
             <div>
               <h1 className="font-display text-base font-semibold text-text-primary tracking-tight">
-                ET<span className="text-amber-400">·</span>AI
+                Kavach
               </h1>
               <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-text-muted">
                 supply chain resilience
@@ -99,6 +101,7 @@ export default function Layout() {
               {location.pathname === '/scenario' && 'DISRUPTION SCENARIO MODELLER'}
               {location.pathname === '/procurement' && 'PROCUREMENT ORCHESTRATOR'}
               {location.pathname === '/map' && 'SUPPLY CHAIN DIGITAL TWIN'}
+              {location.pathname === '/about' && 'ABOUT KAVACH'}
               {location.pathname === '/settings' && 'SYSTEM SETTINGS'}
             </span>
           </div>
