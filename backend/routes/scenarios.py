@@ -32,11 +32,13 @@ router = APIRouter(prefix="/api", tags=["scenarios"])
 # ---------------------------------------------------------------------------
 
 ASSUMPTIONS = {
-    "elasticity_factor": 12.5,
+    "elasticity_factor": 1.3,
     "gdp_oil_sensitivity": 0.15,
     "power_sector_weight": 0.6,
     "duration_normalization_days": 30,
-    "source": "Elasticity multiplier calibrated from crude oil demand elasticity near -0.08 cited in IMF oil-demand literature as a longer-run/upper-bound value; short-run oil demand is also highly inelastic. A 1% supply loss maps to an estimated 12.5% price response before scenario scaling.",
+    "fuel_price_impact_cap_pct": 80.0,
+    "gdp_stress_cap_pct": 15.0,
+    "source": "Illustrative values for hackathon demo. Elasticity based on IMF estimates for oil-importing economies' short-run price response to supply shocks. Outputs are capped at levels consistent with historical worst-case oil shocks (e.g. 2022 Russia-Ukraine disruption) to keep the model within plausible real-world bounds.",
 }
 
 
@@ -96,9 +98,13 @@ async def simulate_scenario(request: ScenarioRequest):
 
     Formulas (from spec):
       refinery_runrate_drop = capacity_loss_pct * corridor_import_share
-      fuel_price_impact_pct = refinery_runrate_drop * elasticity_factor (12.5)
+      fuel_price_impact_pct = min(refinery_runrate_drop * elasticity_factor (1.3), 80.0)
       power_sector_stress_index = f(fuel_price_impact_pct, duration_days)
-      gdp_stress_estimate_pct = fuel_price_impact_pct * 0.15 * (duration_days / 30)
+      gdp_stress_estimate_pct = min(fuel_price_impact_pct * 0.15 * (duration_days / 30), 15.0)
+
+    Both fuel_price_impact_pct and gdp_stress_estimate_pct are hard-capped so that
+    extreme slider inputs (100% capacity loss, 180-day duration) cannot produce
+    outputs that exceed real-world historical worst-case oil shocks.
     """
     # Resolve corridor
     corridor = request.corridor or SCENARIO_CORRIDOR_MAP.get(request.scenario_type)
@@ -116,13 +122,17 @@ async def simulate_scenario(request: ScenarioRequest):
 
     # Deterministic cascading model
     refinery_runrate_drop = cap_loss * import_share * 100  # back to percentage
-    fuel_price_impact_pct = refinery_runrate_drop * ASSUMPTIONS["elasticity_factor"]
+    fuel_price_impact_pct = min(
+        refinery_runrate_drop * ASSUMPTIONS["elasticity_factor"],
+        ASSUMPTIONS["fuel_price_impact_cap_pct"],
+    )
     power_sector_stress_index = round(
         (fuel_price_impact_pct / 100) * ASSUMPTIONS["power_sector_weight"] * min(request.duration_days / 7, 10),
         3,
     )
-    gdp_stress_estimate_pct = (
-        fuel_price_impact_pct * ASSUMPTIONS["gdp_oil_sensitivity"] * (request.duration_days / ASSUMPTIONS["duration_normalization_days"])
+    gdp_stress_estimate_pct = min(
+        fuel_price_impact_pct * ASSUMPTIONS["gdp_oil_sensitivity"] * (request.duration_days / ASSUMPTIONS["duration_normalization_days"]),
+        ASSUMPTIONS["gdp_stress_cap_pct"],
     )
 
     # Supply gap in days (how many days of extra reserves needed)
