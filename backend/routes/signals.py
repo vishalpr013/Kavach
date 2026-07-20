@@ -85,6 +85,7 @@ class LiveFeedResponse(BaseModel):
     fetched_headlines: int
     skipped_seen: int
     ingested_count: int
+    unmatched_corridor_count: int   
     signals: list[ExtractedSignal]
     corridors: list[CorridorScore]
 
