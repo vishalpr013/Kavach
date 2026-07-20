@@ -149,10 +149,6 @@ def _current_corridor_score_models() -> list[CorridorScore]:
 
 @router.post("/poll-live-feed", response_model=LiveFeedResponse)
 async def poll_live_feed():
-    """
-    Poll public RSS feeds and process only new headlines through the existing
-    signal extraction/scoring pipeline.
-    """
     feed_headlines = fetch_live_headlines()
     new_records = []
     skipped_seen = 0
@@ -164,6 +160,7 @@ async def poll_live_feed():
         new_records.append(record)
 
     ingested = []
+    unmatched_corridor = 0
     for record in new_records:
         try:
             signal = await process_single_signal(record["headline"])
@@ -172,13 +169,16 @@ async def poll_live_feed():
             signal["published"] = record["published"]
             ingested.append(ExtractedSignal(**signal))
             mark_headline_seen(record["headline"])
+            if signal["updated_score"] is None:
+                unmatched_corridor += 1
         except Exception as exc:
             logger.warning("Skipping live RSS headline after processing failure: %s", exc)
 
     return LiveFeedResponse(
         fetched_headlines=len(feed_headlines),
         skipped_seen=skipped_seen,
-        ingested_count=len(ingested),
+        ingested_count=len(ingested) - unmatched_corridor,   # only count real corridor matches
+        unmatched_corridor_count=unmatched_corridor,          # new field, be explicit
         signals=ingested,
         corridors=_current_corridor_score_models(),
     )
