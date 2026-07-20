@@ -1,4 +1,4 @@
-import { Shield, RadioTower, BarChart3, Route, Database } from 'lucide-react';
+import { Shield, RadioTower, BarChart3, Route, Database, Table2 } from 'lucide-react';
 
 const modules = [
   {
@@ -20,6 +20,59 @@ const modules = [
     label: 'Transparent Assumptions',
     icon: Database,
     body: 'Keeps constants, caps, import shares, backtesting limits, and model boundaries visible for demo scrutiny.',
+  },
+];
+
+const backtestRows = [
+  {
+    event: 'US-Iran Standoff',
+    corridor: 'Strait of Hormuz',
+    predicted: '3.58%',
+    actual: '-4.61%',
+    error: '8.18%',
+  },
+  {
+    event: 'Libya Port Blockade',
+    corridor: 'Suez Canal',
+    predicted: '1.00%',
+    actual: '-6.04%',
+    error: '7.04%',
+  },
+  {
+    event: 'OPEC+ COVID Cut',
+    corridor: 'Persian Gulf',
+    predicted: '5.05%',
+    actual: '-37.78%',
+    error: '42.83%',
+    boundary: true,
+  },
+  {
+    event: 'Ever Given Suez Blockage',
+    corridor: 'Suez Canal',
+    predicted: '1.50%',
+    actual: '5.49%',
+    error: '4.00%',
+  },
+  {
+    event: 'OPEC+ Surprise Cut',
+    corridor: 'Persian Gulf',
+    predicted: '2.81%',
+    actual: '-0.14%',
+    error: '2.95%',
+  },
+  {
+    event: 'Houthi Red Sea Attacks',
+    corridor: 'Red Sea',
+    predicted: '2.18%',
+    actual: '1.33%',
+    error: '0.85%',
+  },
+  {
+    event: 'Iran Seizes Tanker',
+    corridor: 'Persian Gulf',
+    predicted: '2.11%',
+    actual: '0.98%',
+    error: '1.12%',
   },
 ];
 
@@ -88,6 +141,66 @@ export default function About() {
             <span className="pill-tag">Backtested</span>
           </div>
         </div>
+      </div>
+
+      <div className="card min-w-0">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <Table2 className="w-4 h-4 text-amber-400" />
+              <span className="bracket-label">MODEL VALIDATION</span>
+            </div>
+            <p className="mt-3 max-w-3xl text-xs leading-relaxed text-text-secondary">
+              Historical backtest comparing the scenario modeller's predicted Brent 5-day impact against observed Brent spot moves.
+              Values are embedded as a static validation table for demos, with no live endpoint required.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <span className="pill-tag">7 historical events</span>
+            <span className="pill-tag">Local Brent fallback</span>
+            <span className="pill-tag">5-day window</span>
+          </div>
+        </div>
+
+        <div className="mt-4 overflow-x-auto rounded-lg border border-surface-500">
+          <table className="min-w-full border-collapse text-left">
+            <thead className="bg-surface-800">
+              <tr>
+                <th className="px-3 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-text-muted">Event</th>
+                <th className="px-3 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-text-muted">Corridor</th>
+                <th className="px-3 py-2 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-text-muted">Predicted</th>
+                <th className="px-3 py-2 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-text-muted">Actual</th>
+                <th className="px-3 py-2 text-right font-mono text-[10px] uppercase tracking-[0.15em] text-text-muted">Abs Error</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-surface-500 bg-surface-700">
+              {backtestRows.map(row => (
+                <tr key={row.event} className={row.boundary ? 'bg-risk-critical/5' : 'hover:bg-surface-600/60'}>
+                  <td className="px-3 py-3 align-top">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xs font-medium text-text-primary">{row.event}</span>
+                      {row.boundary && (
+                        <span className="w-fit rounded border border-risk-critical/30 bg-risk-critical/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-risk-critical">
+                          Demand boundary
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-3 py-3 align-top font-mono text-xs text-text-secondary">{row.corridor}</td>
+                  <td className="px-3 py-3 text-right align-top font-mono text-xs text-amber-400">{row.predicted}</td>
+                  <td className="px-3 py-3 text-right align-top font-mono text-xs text-text-secondary">{row.actual}</td>
+                  <td className={`px-3 py-3 text-right align-top font-mono text-xs ${row.boundary ? 'text-risk-critical' : 'text-text-secondary'}`}>
+                    {row.error}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
+          The large OPEC+ COVID miss is retained intentionally because the model is calibrated for supply disruption, not demand collapse.
+        </p>
       </div>
     </div>
   );
