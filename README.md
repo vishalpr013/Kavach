@@ -153,14 +153,3 @@ Kavach runs locally using a Python FastAPI backend and a React (Vite) frontend.
 4. Access the platform at: `http://localhost:5173/`
 
 ---
-
-## 📂 Phase Build Logs
-Progress is cataloged inside the `docs/` folder, detailing implementation history step-by-step:
-- [Phase 0 — Foundations](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-0-foundations.md)
-- [Phase 1 — Risk Intelligence Agent](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-1-risk-intelligence.md)
-- [Phase 2 — Disruption Scenario Modeller](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-2-scenario-modeller.md)
-- [Phase 3 — Integration Checkpoint](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-3-integration-checkpoint.md)
-- [Phase 4 — Procurement Orchestrator](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-4-procurement-orchestrator.md)
-- [Phase 5 — Reserve Optimizer](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-5-reserve-optimizer.md)
-- [Phase 6 — Digital Twin Map](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-6-digital-twin.md)
-- [Phase 7 — Polish Pass](file:///e:/VISHAL%20PRAJAPATI/TECH/Projects/ET-AI/docs/phase-7-polish.md)
