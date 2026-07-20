@@ -25,38 +25,35 @@ graph TD
     subgraph Ingestion [Ingestion Layer]
         A[News & RSS Feeds]
         B[Manual Headline Input]
-        C[Commodity Price Feeds]
     end
-
     subgraph Agentic [AI Signal Processing]
         D[Signal Extraction Agent]
         style D fill:#D97706,stroke:#B45309,stroke-width:2px,color:#fff
     end
-
     subgraph Analytics [Risk Analytics Engine]
         E[Deterministic Scoring Formula]
         F[(In-Memory State Store)]
     end
-
     subgraph Presentation [Visual Operations Control]
         G[Corridor Risk Dashboard]
         H[Digital Twin Geospatial Map]
     end
-
     subgraph Simulation [Cascading Disruption Simulation]
         I[Scenario Modeller]
         J[AI Operational Narrative Agent]
         style J fill:#D97706,stroke:#B45309,stroke-width:2px,color:#fff
     end
-
     subgraph Optimization [Resilience Optimization]
         K[Procurement Orchestrator]
         L[AI Justification Agent]
         M[Strategic Reserve Drawdown Optimizer]
         style L fill:#D97706,stroke:#B45309,stroke-width:2px,color:#fff
     end
-
-    A & B & C --> D
+    subgraph Validation [Offline Backtest Validation]
+        N[Commodity Price Feeds - EIA API]
+        O[Historical Backtest Runner]
+    end
+    A & B --> D
     D -->|Extracted JSON| E
     E <-->|Sync State| F
     E -->|Live Score Streams| G & H
@@ -64,6 +61,8 @@ graph TD
     I -->|Simulation Metrics| J
     I -->|Disrupted Inputs| K & M
     K -->|Ranked MCDA list| L
+    N --> O -->|Predicted vs Actual| E
+
 ```
 
 ### Core Data Flow Description:
