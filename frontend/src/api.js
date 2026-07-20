@@ -23,6 +23,7 @@ export const testConnection = () => api.post('/settings/test-connection');
 export const ingestSignal = (headline) =>
   api.post('/ingest-signal', { headline });
 export const getCorridorScores = () => api.get('/corridor-scores');
+export const pollLiveFeed = () => api.post('/poll-live-feed', null, { timeout: 180000 });
 export const resetDemoState = (includeSeedHeadlines = false) =>
   api.post('/reset-demo-state', { include_seed_headlines: includeSeedHeadlines });
 

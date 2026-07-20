@@ -47,6 +47,9 @@ _corridor_scores: dict[str, dict] = {}
 # All ingested signals (for history / recency tracking)
 _ingested_signals: list[dict] = []
 
+# Normalized RSS headline hashes already processed during this runtime.
+_seen_headlines: set[str] = set()
+
 
 def get_corridor_scores() -> dict:
     """Return current corridor scores."""
@@ -76,3 +79,26 @@ def reset_ingested_signals():
     """Clear ingested signal history (used by demo state reset)."""
     global _ingested_signals
     _ingested_signals = []
+
+
+def _normalize_headline(headline: str) -> str:
+    """Normalize headline text for duplicate detection."""
+    return " ".join(headline.strip().lower().split())
+
+
+def is_headline_seen(headline: str) -> bool:
+    """Return whether an RSS headline was already processed."""
+    normalized = _normalize_headline(headline)
+    return bool(normalized) and normalized in _seen_headlines
+
+
+def mark_headline_seen(headline: str):
+    """Mark an RSS headline as processed."""
+    normalized = _normalize_headline(headline)
+    if normalized:
+        _seen_headlines.add(normalized)
+
+
+def clear_seen_headlines():
+    """Clear RSS duplicate-tracking state."""
+    _seen_headlines.clear()

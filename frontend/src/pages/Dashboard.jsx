@@ -10,7 +10,7 @@ import {
   Clock,
   Loader2,
 } from 'lucide-react';
-import { getCorridorScores, ingestSignal, resetDemoState } from '../api';
+import { getCorridorScores, ingestSignal, pollLiveFeed, resetDemoState } from '../api';
 
 // Risk level thresholds and colors
 function getRiskLevel(score) {
@@ -36,8 +36,10 @@ export default function Dashboard() {
   const [headline, setHeadline] = useState('');
   const [ingesting, setIngesting] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [pollingFeed, setPollingFeed] = useState(false);
   const [lastSignal, setLastSignal] = useState(null);
   const [resetMessage, setResetMessage] = useState('');
+  const [feedMessage, setFeedMessage] = useState('');
   const [animatingCorridor, setAnimatingCorridor] = useState(null);
 
   const fetchScores = useCallback(async () => {
@@ -65,6 +67,7 @@ export default function Dashboard() {
     setIngesting(true);
     setLastSignal(null);
     setResetMessage('');
+    setFeedMessage('');
 
     try {
       const res = await ingestSignal(headline.trim());
@@ -95,6 +98,7 @@ export default function Dashboard() {
     setResetting(true);
     setLastSignal(null);
     setResetMessage('');
+    setFeedMessage('');
 
     try {
       await resetDemoState(false);
@@ -106,6 +110,34 @@ export default function Dashboard() {
       setLastSignal({ error: err.response?.data?.detail || 'Failed to reset demo state' });
     } finally {
       setResetting(false);
+    }
+  };
+
+  const handlePollLiveFeed = async () => {
+    if (pollingFeed) return;
+
+    setPollingFeed(true);
+    setLastSignal(null);
+    setResetMessage('');
+    setFeedMessage('');
+
+    try {
+      const res = await pollLiveFeed();
+      setCorridors(res.data.corridors);
+      const firstUpdated = res.data.signals?.find(signal => signal.updated_score != null);
+      if (firstUpdated) {
+        setLastSignal(firstUpdated);
+        setAnimatingCorridor(firstUpdated.corridor);
+        setTimeout(() => setAnimatingCorridor(null), 2000);
+      }
+      setFeedMessage(
+        `Live feed poll complete. Ingested ${res.data.ingested_count} new signal${res.data.ingested_count === 1 ? '' : 's'}; skipped ${res.data.skipped_seen} already seen headline${res.data.skipped_seen === 1 ? '' : 's'}.`
+      );
+    } catch (err) {
+      console.error('Live feed polling failed:', err);
+      setLastSignal({ error: err.response?.data?.detail || 'Failed to poll live RSS feeds' });
+    } finally {
+      setPollingFeed(false);
     }
   };
 
@@ -241,6 +273,12 @@ export default function Dashboard() {
             <p className="text-xs text-risk-low font-mono">{resetMessage}</p>
           </div>
         )}
+
+        {feedMessage && (
+          <div className="mt-3 p-3 bg-amber-500/5 border border-amber-500/20 rounded-md">
+            <p className="text-xs text-amber-400 font-mono">{feedMessage}</p>
+          </div>
+        )}
       </div>
 
       {/* Corridor Risk Cards */}
@@ -253,6 +291,20 @@ export default function Dashboard() {
             </span>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              onClick={handlePollLiveFeed}
+              disabled={pollingFeed}
+              className="flex items-center gap-1.5 text-text-muted hover:text-amber-400 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {pollingFeed ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Radio className="w-3.5 h-3.5" />
+              )}
+              <span className="font-mono text-[10px] uppercase tracking-wider">
+                {pollingFeed ? 'Polling...' : 'Poll Live Feed'}
+              </span>
+            </button>
             <button
               onClick={handleResetDemo}
               disabled={resetting}

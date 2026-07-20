@@ -8,6 +8,7 @@ Endpoints:
 """
 
 import json
+import logging
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
@@ -15,14 +16,31 @@ from pydantic import BaseModel
 from typing import Optional
 
 try:
-        from ..state import get_corridor_scores, get_ingested_signals, reset_ingested_signals
+        from ..state import (
+            clear_seen_headlines,
+            get_corridor_scores,
+            get_ingested_signals,
+            is_headline_seen,
+            mark_headline_seen,
+            reset_ingested_signals,
+        )
+        from ..ingestion import fetch_live_headlines
         from ..scoring import process_single_signal, initialize_corridor_scores, batch_process_seed_headlines
 except ImportError:
-        from state import get_corridor_scores, get_ingested_signals, reset_ingested_signals
+        from state import (
+            clear_seen_headlines,
+            get_corridor_scores,
+            get_ingested_signals,
+            is_headline_seen,
+            mark_headline_seen,
+            reset_ingested_signals,
+        )
+        from ingestion import fetch_live_headlines
         from scoring import process_single_signal, initialize_corridor_scores, batch_process_seed_headlines
 
 router = APIRouter(prefix="/api", tags=["signals"])
 DATA_DIR = Path(__file__).parent.parent / "data"
+logger = logging.getLogger(__name__)
 
 
 class IngestSignalRequest(BaseModel):
@@ -61,6 +79,14 @@ class ResetDemoStateResponse(BaseModel):
     include_seed_headlines: bool
     corridor_count: int
     total_signals: int
+
+
+class LiveFeedResponse(BaseModel):
+    fetched_headlines: int
+    skipped_seen: int
+    ingested_count: int
+    signals: list[ExtractedSignal]
+    corridors: list[CorridorScore]
 
 
 @router.post("/ingest-signal", response_model=ExtractedSignal)
@@ -104,6 +130,60 @@ async def get_scores():
     return {"corridors": result}
 
 
+def _current_corridor_score_models() -> list[CorridorScore]:
+    scores = get_corridor_scores()
+    result = []
+    for _, data in scores.items():
+        result.append(CorridorScore(
+            name=data["name"],
+            score=round(data["score"], 1),
+            baseline=data["baseline"],
+            import_share_pct=data["import_share_pct"],
+            description=data["description"],
+            signal_count=len(data["signals"]),
+            region=data.get("region", ""),
+        ))
+    result.sort(key=lambda c: c.score, reverse=True)
+    return result
+
+
+@router.post("/poll-live-feed", response_model=LiveFeedResponse)
+async def poll_live_feed():
+    """
+    Poll public RSS feeds and process only new headlines through the existing
+    signal extraction/scoring pipeline.
+    """
+    feed_headlines = fetch_live_headlines()
+    new_records = []
+    skipped_seen = 0
+
+    for record in feed_headlines:
+        if is_headline_seen(record["headline"]):
+            skipped_seen += 1
+            continue
+        new_records.append(record)
+
+    ingested = []
+    for record in new_records:
+        try:
+            signal = await process_single_signal(record["headline"])
+            signal["source"] = record["source"]
+            signal["source_link"] = record["link"]
+            signal["published"] = record["published"]
+            ingested.append(ExtractedSignal(**signal))
+            mark_headline_seen(record["headline"])
+        except Exception as exc:
+            logger.warning("Skipping live RSS headline after processing failure: %s", exc)
+
+    return LiveFeedResponse(
+        fetched_headlines=len(feed_headlines),
+        skipped_seen=skipped_seen,
+        ingested_count=len(ingested),
+        signals=ingested,
+        corridors=_current_corridor_score_models(),
+    )
+
+
 @router.post("/reset-demo-state", response_model=ResetDemoStateResponse)
 async def reset_demo_state(request: ResetDemoStateRequest):
     """
@@ -118,6 +198,7 @@ async def reset_demo_state(request: ResetDemoStateRequest):
 
         initialize_corridor_scores(corridors)
         reset_ingested_signals()
+        clear_seen_headlines()
 
         if request.include_seed_headlines:
             with open(DATA_DIR / "seed_news.json", "r") as f:

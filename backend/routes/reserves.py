@@ -16,7 +16,7 @@ router = APIRouter(prefix="/api", tags=["reserves"])
 
 # India's Strategic Petroleum Reserve — from problem statement
 SPR_DAYS_COVER = 9.5  # days of national consumption
-DAILY_CONSUMPTION_MILLION_BBL = 5.0  # Illustrative — India's approximate daily consumption
+DAILY_CONSUMPTION_MILLION_BBL = 5.4  # PPAC annual petroleum consumption converted to crude-equivalent mb/d
 
 
 class DrawdownRequest(BaseModel):
@@ -127,6 +127,6 @@ async def compute_drawdown(request: DrawdownRequest):
             "spr_days_cover": SPR_DAYS_COVER,
             "daily_consumption_million_bbl": DAILY_CONSUMPTION_MILLION_BBL,
             "front_load_ratio": 0.6,
-            "source": "SPR cover from problem statement (9.5 days). Daily consumption illustrative.",
+            "source": "SPR cover from problem statement (9.5 days). Daily consumption uses PPAC, Ministry of Petroleum & Natural Gas, India petroleum consumption around 233 MMT/year for FY 2024-25/FY 2025-26, converted to approximately 5.4 million barrels/day.",
         },
     )

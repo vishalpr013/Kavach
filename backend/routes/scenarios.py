@@ -32,11 +32,11 @@ router = APIRouter(prefix="/api", tags=["scenarios"])
 # ---------------------------------------------------------------------------
 
 ASSUMPTIONS = {
-    "elasticity_factor": 1.3,
+    "elasticity_factor": 12.5,
     "gdp_oil_sensitivity": 0.15,
     "power_sector_weight": 0.6,
     "duration_normalization_days": 30,
-    "source": "Illustrative values for hackathon demo. Elasticity based on IMF estimates for oil-importing economies.",
+    "source": "Elasticity multiplier calibrated from crude oil demand elasticity near -0.08 cited in IMF oil-demand literature as a longer-run/upper-bound value; short-run oil demand is also highly inelastic. A 1% supply loss maps to an estimated 12.5% price response before scenario scaling.",
 }
 
 
@@ -96,7 +96,7 @@ async def simulate_scenario(request: ScenarioRequest):
 
     Formulas (from spec):
       refinery_runrate_drop = capacity_loss_pct * corridor_import_share
-      fuel_price_impact_pct = refinery_runrate_drop * elasticity_factor (1.3)
+      fuel_price_impact_pct = refinery_runrate_drop * elasticity_factor (12.5)
       power_sector_stress_index = f(fuel_price_impact_pct, duration_days)
       gdp_stress_estimate_pct = fuel_price_impact_pct * 0.15 * (duration_days / 30)
     """

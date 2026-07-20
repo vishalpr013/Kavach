@@ -2,8 +2,8 @@
   {
     "name": "Strait of Hormuz",
     "baseline_risk_score": 45,
-    "import_share_pct": 0.40,
-    "description": "Critical chokepoint handling ~20% of global oil transit. ~40-45% of India's crude imports transit here.",
+    "import_share_pct": 0.43,
+    "description": "Critical chokepoint handling roughly one-fifth of global oil transit and about 43% of India's crude import exposure.",
     "lat": 26.56,
     "lng": 56.25,
     "region": "Persian Gulf"
@@ -11,8 +11,8 @@
   {
     "name": "Red Sea",
     "baseline_risk_score": 55,
-    "import_share_pct": 0.12,
-    "description": "Red Sea / Bab-el-Mandeb strait. Key transit route affected by Houthi disruptions since 2023.",
+    "import_share_pct": 0.30,
+    "description": "Red Sea / Bab-el-Mandeb route with about 30% India-linked crude flow exposure, including Russia/Europe-adjacent long-haul routing.",
     "lat": 12.58,
     "lng": 43.33,
     "region": "Red Sea"
@@ -20,8 +20,8 @@
   {
     "name": "Iran Exports",
     "baseline_risk_score": 40,
-    "import_share_pct": 0.10,
-    "description": "Direct crude imports from Iran, subject to periodic sanctions pressure.",
+    "import_share_pct": 0.02,
+    "description": "Direct Iran-linked crude exposure is 2% or less under sanctions constraints, but disruptions still indicate broader Gulf risk.",
     "lat": 27.15,
     "lng": 56.17,
     "region": "Persian Gulf"
@@ -29,8 +29,8 @@
   {
     "name": "Persian Gulf",
     "baseline_risk_score": 35,
-    "import_share_pct": 0.65,
-    "description": "Broader Persian Gulf shipping lanes. Saudi Arabia, Iraq, Kuwait, and UAE exports to India.",
+    "import_share_pct": 0.54,
+    "description": "Broader Persian Gulf shipping lanes covering Saudi Arabia, Iraq, Kuwait, and UAE exports, representing about 54% of India's crude supplier mix.",
     "lat": 26.00,
     "lng": 52.00,
     "region": "Persian Gulf"
@@ -38,8 +38,8 @@
   {
     "name": "Suez Canal",
     "baseline_risk_score": 25,
-    "import_share_pct": 0.08,
-    "description": "Egypt's Suez Canal — key shortcut for Europe-Asia oil trade, alternative routing for Indian imports.",
+    "import_share_pct": 0.32,
+    "description": "Egypt's Suez Canal shortcut for Europe-Asia oil trade, with about 32% exposure when Russia/Europe-linked flows and rerouting dependencies are included.",
     "lat": 30.46,
     "lng": 32.34,
     "region": "Mediterranean"
@@ -47,8 +47,8 @@
   {
     "name": "Cape of Good Hope",
     "baseline_risk_score": 15,
-    "import_share_pct": 0.05,
-    "description": "Alternative long-haul route around Africa when Red Sea/Suez routes are disrupted. Higher transit costs.",
+    "import_share_pct": 0.08,
+    "description": "Alternative long-haul route around Africa with about 8% exposure as Red Sea and Suez disruptions push tankers onto costlier routes.",
     "lat": -34.35,
     "lng": 18.47,
     "region": "Africa"
